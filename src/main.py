@@ -1,7 +1,7 @@
 #!/bin/python3.12
-from tools.graph import Graph, Node
 
 def main():
+    # TODO : run tkinter & integrated python console 
     pass
 
 if __name__ == "__main__":
