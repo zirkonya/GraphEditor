@@ -8,7 +8,7 @@ DEFAULT_NODE_TEXT_COLOR = "black"
 DEFAULT_NODE_OUTLINE_COLOR = "black"
 
 # Default node size
-DEFAULT_NODE_RADIUS = 16
+DEFAULT_NODE_RADIUS = 32
 DEFAULT_NODE_OUTLINE_WIDTH = 3
 
 # Default edge color
@@ -161,6 +161,14 @@ class Graph:
 
     def shortest_path(self, start, end, algorithm=dijkstra):
         return ([start], 0) if start == end else algorithm(self, start, end)
+
+    def run_algorithm(self, algorithm=dijkstra, visualize=False):
+        if visualize:
+            # visualize
+            pass
+        else:
+            # No visualization
+            pass
 
     def export_json(self, filename='graph.json'):
         json_nodes = [node.__dict__() for node in self.nodes]

@@ -1,15 +1,18 @@
 import tkinter as tk
-from tools.graph import Graph
+from tools.graph import Graph, Node
 
 DEFAULT_HEIGHT = 600
 DEFAULT_WIDTH = 800
 
+DEFAULT_GRAPH = Graph()
+DEFAULT_GRAPH.add_nodes([ Node('A', 150, 150), Node('B', 200, 200), Node('C', 300, 130) ])
+DEFAULT_GRAPH.add_edges({ (0, 1): 1, (0, 2): 1, (1, 2): 1 })
+
 class GraphWindow:
     def __init__(self, height=DEFAULT_HEIGHT, width=DEFAULT_WIDTH):
-        print('INIT')
         self.selected_node = None
         self.current_graph = '__DEFAULT__'
-        self.graphs = { '__DEFAULT__': Graph.import_json() }
+        self.graphs = { '__DEFAULT__': DEFAULT_GRAPH }
         self.root = tk.Tk()
         self.root.title("GraphEditor")
         self.canvas = tk.Canvas(self.root, width=width, height=height)
@@ -19,7 +22,6 @@ class GraphWindow:
         self.import_button = tk.Button(self.root, text="Import Graph", command=self)
         self.import_button.pack()
         self.canvas.bind("<Button-3>", self.on_right_click)
-
         self.canvas.bind("<Button-1>", self.on_left_click)
         self.canvas.bind("<ButtonRelease-1>", self.on_left_release)
         self.canvas.bind("<Double-Button-1>", self.on_double_click)
@@ -86,7 +88,6 @@ class GraphWindow:
         pass
 
     def update(self):
-        print('RUN')
         self.canvas.delete('all')
         self.draw_graph()
         self.root.after(16, self.update)

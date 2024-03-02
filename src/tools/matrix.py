@@ -38,3 +38,38 @@ class Matrix:
         return self.rows == self.cols
 
     # Operations of matrix
+    def __add__(self, other):
+        if self.cols != other.cols and self.rows != other.rows:
+            raise ValueError("Matrices must have same columns size")
+        new_matrix = Matrix()
+        new_matrix.rows = self.rows
+        new_matrix.cols = self.cols
+        for i in range(self.rows):
+            for j in range(self.cols):
+                new_matrix.set_at(i, j, self.at(i, j) + other.at(i, j))
+        return new_matrix
+
+    def __sub__(self, other):
+        if self.cols != other.cols and self.rows != other.rows:
+            raise ValueError("Matrices must have same columns size")
+        new_matrix = Matrix()
+        new_matrix.rows = self.rows
+        new_matrix.cols = self.cols
+        for i in range(self.rows):
+            for j in range(self.cols):
+                new_matrix.set_at(i, j, self.at(i, j) - other.at(i, j))
+        return new_matrix
+
+    def __mul__(self, other):
+        if self.cols != other.rows:
+            raise ValueError("Matrices must have same columns size")
+        new_matrix = Matrix()
+        new_matrix.rows = self.rows
+        new_matrix.cols = other.cols
+        for i in range(self.rows):
+            for j in range(other.cols):
+                sum = 0
+                for k in range(self.cols):
+                    sum += self.at(i, k) * other.at(k, j)
+                new_matrix.set_at(i, j, sum)
+        return new_matrix
