@@ -169,12 +169,16 @@ class Graph:
         with open(filename, 'w') as file:
             json.dump({'nodes': json_nodes, 'edges': json_edges}, fp=file)
 
-    def import_json(self, filename='graph.json'):
+    def import_json(filename='graph.json'):
         with open(filename, 'r') as file:
             json_data = json.load(file)
-            
-
-        pass
+        json_nodes = json_data['nodes']
+        json_edges = json_data['edges']
+        
+        graph = Graph()
+        graph.add_nodes([Node(node['value'], node['x'], node['y'], node['radius']) for node in json_nodes])
+        graph.add_edges({(edge['start'], edge['end']): edge['weight'] for edge in json_edges})
+        return graph
 
     # Tkinter implementation to display graph
     def display(self, canvas, edge_width=DEFAULT_EDGE_WIDTH, edge_color=DEFAULT_EDGE_COLOR, node_radius=DEFAULT_NODE_RADIUS, node_text_color=DEFAULT_NODE_TEXT_COLOR, node_outline_color=DEFAULT_NODE_OUTLINE_COLOR, node_outline_width=DEFAULT_NODE_OUTLINE_WIDTH, node_fill_color=DEFAULT_NODE_FILL_COLOR):
