@@ -16,11 +16,7 @@ GraphEditor is a powerful tool for creating, manipulating, and visualizing graph
 git clone https://github.com/zirkonya/graph_editor.git
 cd graph_editor
 ```
-2. Install dependencies
-```
-pip install -r requirements.txt
-```
-3. Run the application
+2. Run the application
 ```
 python main.py
 ```
