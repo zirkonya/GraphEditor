@@ -182,9 +182,9 @@ class Graph:
 
     # Tkinter implementation to display graph
     def display(self, canvas, edge_width=DEFAULT_EDGE_WIDTH, edge_color=DEFAULT_EDGE_COLOR, node_radius=DEFAULT_NODE_RADIUS, node_text_color=DEFAULT_NODE_TEXT_COLOR, node_outline_color=DEFAULT_NODE_OUTLINE_COLOR, node_outline_width=DEFAULT_NODE_OUTLINE_WIDTH, node_fill_color=DEFAULT_NODE_FILL_COLOR):
-        for node in self.nodes:
-            node.display(canvas, node_radius, node_text_color, node_outline_color, node_outline_width, node_fill_color)
-        for edge, weight in self.edges:
+        for edge in self.edges:
             start_node = self.nodes[edge[0]]
             end_node = self.nodes[edge[1]]
             canvas.create_line(start_node.x, start_node.y, end_node.x, end_node.y, fill=edge_color, width=edge_width)
+        for node in self.nodes:
+            node.display(canvas, node_radius, node_text_color, node_outline_color, node_outline_width, node_fill_color)

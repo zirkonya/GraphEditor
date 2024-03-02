@@ -1,8 +1,9 @@
-#!/bin/python3.12
+#!/bin/python3
+from window.window import GraphWindow
 
 def main():
-    # TODO : run tkinter & integrated python console 
-    pass
+    window = GraphWindow()
+    window.mainloop()
 
 if __name__ == "__main__":
     main()
