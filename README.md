@@ -1,5 +1,7 @@
 # GraphEditor
 
+> NB : not working yet
+
 GraphEditor is a powerful tool for creating, manipulating, and visualizing graphs using Python. It offers an intuitive graphical interface, as well as a Python console for advanced graph manipulation and adjacency matrix support.
 
 ## Features
