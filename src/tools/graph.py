@@ -1,7 +1,6 @@
-# Display
-import tkinter as tk
 # To algorithm of searching
 import heapq
+import json
 
 # Default node colors
 DEFAULT_NODE_FILL_COLOR = "white"
@@ -53,6 +52,17 @@ class Node:
         self.y = y
         self.radius = radius
 
+    def __str__(self):
+        return f"Value: {self.value} x: {self.x} y: {self.y} radius: {self.radius}"
+
+    def __dict__(self):
+        return {
+            "value": self.value,
+            "x": self.x,
+            "y": self.y,
+            "radius": self.radius
+        }
+
     def set_value(self, value):
         self.value = value
 
@@ -84,13 +94,16 @@ class Graph:
         self.nodes = []
         self.edges = {}
 
+    def __str__(self):
+        return f"Nodes: {', '.join([str(node) for node in self.nodes])} Edges: {self.edges}"
+
     def __getitem__(self, i):
         # if i is string
-        if type(i) == str:
+        if isinstance(i, str):
             for node in self.nodes:
                 if node.value == i:
                     return node
-        elif type(i) == int:
+        elif isinstance(i, int):
             return self.nodes[i]
         else:
             raise ValueError("Invalid index")
@@ -106,8 +119,10 @@ class Graph:
             self.nodes.append(node)
 
     def remove_nodes(self, nodes):
-        for node in self.nodes:
-            self.nodes.remove(node)
+        for node in nodes:
+            if node in self.nodes:
+                self.nodes.remove(node)
+
     
     def add_edges(self, edges):
         # add edges & weight into self.edges dictionary
@@ -138,7 +153,7 @@ class Graph:
         adjacency_list = {}
         for i in range(len(self.nodes)):
             for j in range(i+1, len(self.nodes)):
-                if adjacency[i]:
+                if adjacency_list[i]:
                     adjacency_list[i].append(j)
                 else:
                     adjacency_list[i] = [j]
@@ -146,6 +161,20 @@ class Graph:
 
     def shortest_path(self, start, end, algorithm=dijkstra):
         return ([start], 0) if start == end else algorithm(self, start, end)
+
+    def export_json(self, filename='graph.json'):
+        json_nodes = [node.__dict__() for node in self.nodes]
+        json_edges = [{'start': edge[0], 'end': edge[1], 'weight': self.edges[edge]} for edge in self.edges]
+
+        with open(filename, 'w') as file:
+            json.dump({'nodes': json_nodes, 'edges': json_edges}, fp=file)
+
+    def import_json(self, filename='graph.json'):
+        with open(filename, 'r') as file:
+            json_data = json.load(file)
+            
+
+        pass
 
     # Tkinter implementation to display graph
     def display(self, canvas, edge_width=DEFAULT_EDGE_WIDTH, edge_color=DEFAULT_EDGE_COLOR, node_radius=DEFAULT_NODE_RADIUS, node_text_color=DEFAULT_NODE_TEXT_COLOR, node_outline_color=DEFAULT_NODE_OUTLINE_COLOR, node_outline_width=DEFAULT_NODE_OUTLINE_WIDTH, node_fill_color=DEFAULT_NODE_FILL_COLOR):

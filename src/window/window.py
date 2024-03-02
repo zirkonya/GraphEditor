@@ -1,7 +1,5 @@
 import tkinter as tk
-import json
-from PIL import Image, ImageTk
-from tools.graph import *
+from tools.graph import Graph
 
 DEFAULT_HEIGHT = 600
 DEFAULT_WIDTH = 800
@@ -24,8 +22,7 @@ class GraphWindow:
         self.canvas.bind("<MouseWheel>", self.on_wheel_motion)
         self.canvas.bind("<Motion>", self.on_mouse_motion)
 
-
-    def add_graph(self, name, graph: Graph):
+    def add_graph(self, name, graph):
         self.graphs[name] = graph
 
     def draw_graph(self):
